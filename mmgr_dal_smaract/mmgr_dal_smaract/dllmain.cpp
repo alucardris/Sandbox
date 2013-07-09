@@ -34,9 +34,6 @@ BOOL APIENTRY DllMain( HMODULE /*hModule*/,
 #include "D:/projects/3rdparty/smaract/DeviceUtils.h"
 #include "D:/projects/3rdparty/smaract/Property.h"
 #include "SCU3DControl.h"
-
-//#include "APTAPI.h"
-//#include "ThorlabsDCStage.h"
 #include <cstdio>
 #include <string>
 #include <math.h>
@@ -151,16 +148,16 @@ Smaract::Smaract() :
    // ------------------------------------
 
    // Name
-   //CreateProperty(MM::g_Keyword_Name, g_DeviceName, MM::String, true);
+   CreateProperty(MM::g_Keyword_Name, g_DeviceName, MM::String, true);
 
    // Description
-   //CreateProperty(MM::g_Keyword_Description, "Smaract Stage", MM::String, true);
+   CreateProperty(MM::g_Keyword_Description, "Smaract Stage", MM::String, true);
  
 
    
    // Port
-   //CPropertyAction* pAct = new CPropertyAction (this, &Smaract::OnPort);
-   //CreateProperty(MM::g_Keyword_Port, "Undefined", MM::String, false, pAct, true);
+   CPropertyAction* pAct = new CPropertyAction (this, &Smaract::OnPort);
+   CreateProperty(MM::g_Keyword_Port, "Undefined", MM::String, false, pAct, true);
 }
 
 Smaract::~Smaract()
@@ -206,15 +203,15 @@ int Smaract::Initialize()
 	//Action Properties
 	//Change position
 
-   //CPropertyAction* pAct = new CPropertyAction (this, &Smaract::OnPosition);
-   //CPropertyAction* pAct2 = new CPropertyAction (this, &Smaract::OnVelocity);
-   //CPropertyAction* pAct3 = new CPropertyAction (this, &Smaract::OnHome);
-   //CreateProperty(g_Keyword_Position, "0.0", MM::Float, false, pAct);
-   //SetPropertyLimits(g_Keyword_Position, 0.0, maxTravelUm_);
+   CPropertyAction* pAct = new CPropertyAction (this, &Smaract::OnPosition);
+   CPropertyAction* pAct2 = new CPropertyAction (this, &Smaract::OnVelocity);
+   CPropertyAction* pAct3 = new CPropertyAction (this, &Smaract::OnHome);
+   CreateProperty(g_Keyword_Position, "0.0", MM::Float, false, pAct);
+   SetPropertyLimits(g_Keyword_Position, 0.0, maxTravelUm_);
 
-   //CreateProperty(g_Keyword_Velocity, CDeviceUtils::ConvertToString(pfMaxVel), MM::Float, false, pAct2);
-   //CreateProperty(g_Keyword_Home, "0.0", MM::Float, false, pAct3);
-   //SetPropertyLimits(g_Keyword_Home, 0.0, 1.0);
+   CreateProperty(g_Keyword_Velocity, CDeviceUtils::ConvertToString(pfMaxVel), MM::Float, false, pAct2);
+   CreateProperty(g_Keyword_Home, "0.0", MM::Float, false, pAct3);
+   SetPropertyLimits(g_Keyword_Home, 0.0, 1.0);
 
 
    ret = UpdateStatus();
