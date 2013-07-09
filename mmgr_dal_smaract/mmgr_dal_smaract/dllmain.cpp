@@ -35,8 +35,6 @@ BOOL APIENTRY DllMain( HMODULE /*hModule*/,
 #include "D:/projects/3rdparty/smaract/Property.h"
 #include "SCU3DControl.h"
 
-//#include "APTAPI.h"
-//#include "ThorlabsDCStage.h"
 #include <cstdio>
 #include <string>
 #include <math.h>
@@ -151,16 +149,16 @@ Smaract::Smaract() :
    // ------------------------------------
 
    // Name
-   //CreateProperty(MM::g_Keyword_Name, g_DeviceName, MM::String, true);
+   CreateProperty(MM::g_Keyword_Name, g_DeviceName, MM::String, true);
 
    // Description
-   //CreateProperty(MM::g_Keyword_Description, "Smaract Stage", MM::String, true);
+   CreateProperty(MM::g_Keyword_Description, "Smaract Stage", MM::String, true);
  
 
    
    // Port
-   //CPropertyAction* pAct = new CPropertyAction (this, &Smaract::OnPort);
-   //CreateProperty(MM::g_Keyword_Port, "Undefined", MM::String, false, pAct, true);
+   CPropertyAction* pAct = new CPropertyAction (this, &Smaract::OnPort);
+   CreateProperty(MM::g_Keyword_Port, "Undefined", MM::String, false, pAct, true);
 }
 
 Smaract::~Smaract()
